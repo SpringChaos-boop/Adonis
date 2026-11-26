@@ -3,10 +3,5 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Статический сайт персонажа Горицвет: template.html + content.json + рендер.",
-  "scripts": {
-    "build": "node build.mjs",
-    "dev": "node server.mjs",
-    "check": "node check.mjs"
-  }
+  "description": "Статический сайт персонажа Горицвет. package.json нужен только для флага type: module — зависимостей и npm-скриптов нет."
 }

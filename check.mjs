@@ -84,21 +84,28 @@ for (const asset of assetPaths) {
 
 if (!assetPaths.size) notes.push('контент пока не использует ни одного файла из assets/');
 
-// ---------- собранный index.html ----------
+// ---------- собранные страницы ----------
 
 try {
   const html = await readFile(resolve(root, 'index.html'), 'utf8');
-  if (html.includes('{{')) problems.push('index.html содержит незаполненные {{плейсхолдеры}} — пересоберите: npm run build');
+  if (html.includes('{{')) problems.push('index.html содержит незаполненные {{плейсхолдеры}} — пересоберите: build.cmd');
 
   const [contentStat, htmlStat] = await Promise.all([
     stat(resolve(root, 'content.json')),
     stat(resolve(root, 'index.html')),
   ]);
   if (htmlStat.mtimeMs < contentStat.mtimeMs) {
-    notes.push('index.html старше content.json — пересоберите: npm run build');
+    notes.push('index.html старше content.json — пересоберите: build.cmd');
   }
 } catch {
-  problems.push('index.html не найден — выполните: npm run build');
+  problems.push('index.html не найден — выполните сборку: build.cmd');
+}
+
+try {
+  const notFound = await readFile(resolve(root, '404.html'), 'utf8');
+  if (notFound.includes('{{')) problems.push('404.html содержит незаполненные {{плейсхолдеры}} — пересоберите: build.cmd');
+} catch {
+  problems.push('404.html не найден — выполните сборку: build.cmd');
 }
 
 // ---------- отчёт ----------

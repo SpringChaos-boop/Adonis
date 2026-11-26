@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Страница не найдена — {{site.name}}</title>
+<meta name="description" content="Такой страницы на сайте нет.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#f3ebdd">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+
+<div class="site-shell">
+<header>
+  <a class="brand" href="{{home}}">{{site.name}}<small>{{site.brandNote}}</small></a>
+</header>
+
+<main id="main" class="not-found">
+  <div class="eyebrow">404 · NOT FOUND</div>
+  <h1>Страница не найдена</h1>
+  <p class="intro">Похоже, этот лист ещё не распустился. Вернитесь на главную — там всё на месте.</p>
+  <p><a class="back-link" href="{{home}}">На главную</a></p>
+</main>
+
+<footer>
+  <span>{{footer.left}}</span>
+  <span>{{footer.right}}</span>
+</footer>
+</div>
+</body>
+</html>
