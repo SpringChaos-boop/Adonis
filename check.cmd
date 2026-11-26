@@ -1,17 +1,19 @@
 @echo off
 chcp 65001 >nul
-title Горицвет — проверка перед публикацией
+title Goritsvet - check
 cd /d "%~dp0"
 
 where node >nul 2>nul
-if errorlevel 1 (
-  echo.
-  echo Для проверки нужен Node.js: https://nodejs.org/
-  echo.
-  pause
-  exit /b
-)
+if errorlevel 1 goto nonode
 
 node check.mjs
+goto done
+
+:nonode
+echo.
+echo Node.js is required for the checks: https://nodejs.org/
+echo.
+
+:done
 echo.
 pause

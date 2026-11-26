@@ -1,30 +1,31 @@
 @echo off
 chcp 65001 >nul
-title Горицвет — локальный просмотр
+title Goritsvet - local preview
 cd /d "%~dp0"
 
 where node >nul 2>nul
-if %errorlevel%==0 (
-  echo Запускаю сервер на Node.js...
-  start "Горицвет — сервер" node server.mjs 8080
-  timeout /t 2 >nul
-  start "" http://localhost:8080/
-  exit /b
-)
+if not errorlevel 1 goto node
 
 where python >nul 2>nul
-if %errorlevel%==0 (
-  echo Запускаю сервер на Python...
-  start "Горицвет — сервер" python -m http.server 8080
-  timeout /t 2 >nul
-  start "" http://localhost:8080/
-  exit /b
-)
+if not errorlevel 1 goto python
 
 echo.
-echo Не найден ни Node.js, ни Python.
-echo Поставьте Node.js: https://nodejs.org/
-echo Или откройте index.html напрямую: статическая версия работает и так,
-echo но правки в content.json тогда не подхватятся.
+echo Neither Node.js nor Python was found.
+echo Install Node.js: https://nodejs.org/
+echo Or open index.html directly - the static version works,
+echo but edits in content.json will not be applied.
 echo.
 pause
+exit /b
+
+:node
+start "Goritsvet server" node server.mjs 8080
+timeout /t 2 >nul
+start "" http://localhost:8080/
+exit /b
+
+:python
+start "Goritsvet server" python -m http.server 8080
+timeout /t 2 >nul
+start "" http://localhost:8080/
+exit /b
