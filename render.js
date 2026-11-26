@@ -85,14 +85,9 @@ function banner(media) {
     </figure>`;
 }
 
-function meander(data, className = 'decor-footer-image') {
-  const block = data.site && data.site.meander;
-  if (!block || !block.src) return '';
-  const attrs = [`src="${esc(block.src)}"`];
-  if (block.width) attrs.push(`width="${esc(block.width)}"`);
-  if (block.height) attrs.push(`height="${esc(block.height)}"`);
-  attrs.push(`alt="${esc(block.alt || '')}"`, 'loading="lazy"', 'decoding="async"');
-  return `<div class="${className}"><img ${attrs.join(' ')}></div>`;
+function meander(className = '') {
+  const extra = className ? ` ${className}` : '';
+  return `<div class="meander-frieze${extra}" aria-hidden="true"></div>`;
 }
 
 function renderLinks(links) {
@@ -170,7 +165,7 @@ export function renderProfileContent(data) {
     quote(data.quote),
     banner(data.banner),
     sectionsList(data.sections),
-    meander(data),
+    meander(),
     credits(data),
   ]
     .filter(Boolean)
@@ -194,7 +189,7 @@ export function renderGalleryContent(data) {
   return `<div class="eyebrow">${esc(gallery.eyebrow || '')}</div>
     <h1 id="gallery-title">${esc(gallery.title || 'Галерея')}</h1>
     ${gallery.intro ? `<p class="gallery-intro">${esc(gallery.intro)}</p>` : ''}
-    ${meander(data, 'gallery-rule')}
+    ${meander('meander-frieze--rule')}
     <div class="gallery-grid">${tiles}</div>`;
 }
 

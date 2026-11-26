@@ -12,12 +12,6 @@
     "footer": {
       "left": "GORITSVET · CATWAR",
       "right": "BETWEEN EARTH & SUN"
-    },
-    "meander": {
-      "src": "assets/meander.png",
-      "width": 640,
-      "height": 179,
-      "alt": "Античный греческий меандр"
     }
   },
   "character": {

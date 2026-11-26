@@ -361,26 +361,17 @@ h1 {
   max-width: 430px;
 }
 
-.decor-footer-image,
-.gallery-rule {
-  max-width: 280px;
-  margin: 38px auto 10px;
-  opacity: 0.8;
-}
-
-.decor-footer-image img,
-.gallery-rule img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+.meander-frieze {
+  height: 44px;
+  margin: 40px 0 20px;
+  background: url("assets/meander-tile.png") repeat-x center / auto 100%;
   mix-blend-mode: multiply;
+  opacity: 0.9;
 }
 
-.gallery-rule {
-  max-width: 260px;
-  margin: 0 auto 26px;
-  opacity: 0.55;
+.meander-frieze--rule {
+  height: 40px;
+  margin: 6px 0 30px;
 }
 
 .image-credit {
@@ -686,8 +677,14 @@ footer {
     max-width: min(100%, 300px);
   }
 
-  .decor-footer-image {
-    max-width: 220px;
+  .meander-frieze {
+    height: 32px;
+    margin: 28px 0 10px;
+  }
+
+  .meander-frieze--rule {
+    height: 28px;
+    margin: 4px 0 22px;
   }
 
   .site-shell {

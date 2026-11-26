@@ -84,6 +84,23 @@ for (const asset of assetPaths) {
 
 if (!assetPaths.size) notes.push('контент пока не использует ни одного файла из assets/');
 
+// ---------- файлы, на которые ссылается CSS ----------
+
+try {
+  const css = await readFile(resolve(root, 'styles.css'), 'utf8');
+  for (const match of css.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/g)) {
+    const ref = match[1].trim();
+    if (/^(data:|https?:|\/\/)/.test(ref)) continue;
+    try {
+      await access(resolve(root, ref));
+    } catch {
+      problems.push(`styles.css ссылается на отсутствующий файл ${ref}`);
+    }
+  }
+} catch {
+  problems.push('styles.css не найден');
+}
+
 // ---------- собранные страницы ----------
 
 try {
