@@ -1,0 +1,7 @@
+# исходники изображений и служебный мусор
+_src/
+node_modules/
+*.log
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,794 @@
+/* ==================================================================
+   Between Earth & Sun — оформление сайта
+   Палитра и типографика вынесены в :root, чтобы админ-панель
+   могла перекрашивать сайт, не трогая правила раскладки.
+   ================================================================== */
+
+:root {
+  --paper: #f3ebdd;
+  --paper2: #e9deca;
+  --ink: #493b32;
+  --muted: #80694d;
+  --gold: #b49a70;
+  --line: #d8c5a5;
+  --white: #faf7f0;
+  --shadow: 0 18px 55px rgba(73, 59, 50, 0.08);
+}
+
+/* ---------- база ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+#main:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: -70px;
+  left: 16px;
+  z-index: 20;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- шапка ---------- */
+
+.site-shell {
+  width: min(1120px, calc(100% - 48px));
+  margin: auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 82px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-family: Georgia, serif;
+  font-size: 19px;
+  letter-spacing: 0.04em;
+}
+
+.brand small {
+  display: block;
+  margin-top: 2px;
+  font: 9px Arial, sans-serif;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+
+nav {
+  display: flex;
+  gap: 26px;
+}
+
+nav a {
+  position: relative;
+  display: inline-block;
+  padding: 14px 2px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+nav a:hover {
+  color: var(--ink);
+}
+
+nav a[aria-current="page"] {
+  color: var(--ink);
+}
+
+nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  right: 2px;
+  bottom: 6px;
+  left: 2px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ---------- страницы ---------- */
+
+main {
+  padding: 54px 0 70px;
+}
+
+.page[hidden] {
+  display: none;
+}
+
+/* ---------- главный экран ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 58px;
+  align-items: center;
+  min-height: 440px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+h1 {
+  font: clamp(48px, 7vw, 78px) / 1.02 Georgia, serif;
+  font-weight: 400;
+  margin: 17px 0 12px;
+  letter-spacing: -0.045em;
+}
+
+.name-chain {
+  margin: 0 0 18px;
+  font: italic 17px Georgia, serif;
+  color: var(--muted);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 25px;
+}
+
+.meta span {
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.intro {
+  max-width: 430px;
+  color: #756451;
+  font: 17px/1.8 Georgia, serif;
+}
+
+.hero-art {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  justify-self: end;
+}
+
+.portrait-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 686 / 739;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, #d9c9ad, #b9a17c 55%, #8d775c);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.portrait-placeholder::before {
+  content: "";
+  position: absolute;
+  top: 12%;
+  left: 14%;
+  width: 72%;
+  height: 72%;
+  border: 1px solid rgba(243, 235, 221, 0.55);
+  border-radius: 50%;
+}
+
+.portrait-placeholder::after {
+  content: "";
+  position: absolute;
+  bottom: -5%;
+  left: 22%;
+  width: 55%;
+  height: 45%;
+  border: 1px solid rgba(243, 235, 221, 0.45);
+  border-radius: 50% 50% 4px 4px;
+  background: rgba(243, 235, 221, 0.12);
+}
+
+.portrait-placeholder img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portrait-label {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #f8f0e2;
+  font: italic 17px Georgia, serif;
+  letter-spacing: 0.04em;
+}
+
+.art-caption {
+  margin-top: 12px;
+  text-align: right;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+/* ---------- разделители и цитата ---------- */
+
+.sun-mark {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 12px 0 30px;
+  color: var(--gold);
+}
+
+.sun-mark::before,
+.sun-mark::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.sun-mark span {
+  font-size: 17px;
+}
+
+.quote {
+  max-width: 650px;
+  margin: 0 auto 54px;
+  padding: 22px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.quote p {
+  margin: 0 0 10px;
+  font: italic clamp(20px, 3vw, 27px) / 1.5 Georgia, serif;
+}
+
+.quote small {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+
+/* ---------- изображения ---------- */
+
+.decor-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  background: #e8ddca;
+  overflow: hidden;
+}
+
+.decor-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  margin: 44px 0;
+}
+
+.decor-banner .decor-image {
+  min-height: 0;
+}
+
+.decor-banner .decor-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+.decor-banner .icarus {
+  width: 100%;
+  max-width: 430px;
+}
+
+.decor-footer-image,
+.gallery-rule {
+  max-width: 280px;
+  margin: 38px auto 10px;
+  opacity: 0.8;
+}
+
+.decor-footer-image img,
+.gallery-rule img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.gallery-rule {
+  max-width: 260px;
+  margin: 0 auto 26px;
+  opacity: 0.55;
+}
+
+.image-credit {
+  max-width: 700px;
+  margin: 8px auto 0;
+  font-size: 9px;
+  line-height: 1.5;
+  color: var(--muted);
+  text-align: center;
+}
+
+.image-credit a {
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 2px;
+}
+
+/* ---------- карточки ---------- */
+
+.section-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.info-card {
+  min-height: 175px;
+  padding: 27px 29px;
+  border: 1px solid rgba(216, 197, 165, 0.75);
+  background: rgba(250, 247, 240, 0.55);
+}
+
+.info-card.wide {
+  grid-column: 1 / -1;
+  min-height: 145px;
+  background: var(--paper2);
+}
+
+.info-card h2 {
+  margin: 10px 0 8px;
+  font: 26px Georgia, serif;
+  font-weight: 400;
+}
+
+.info-card p {
+  max-width: 690px;
+  margin: 0;
+  color: #756451;
+  font-size: 14px;
+}
+
+.card-number {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
+
+.info-card-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 32px;
+  align-items: center;
+}
+
+.info-card-split .info-card-body {
+  min-width: 0;
+}
+
+.family-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  background: var(--white);
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  line-height: 1.7;
+  text-align: center;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.family-art small {
+  display: block;
+  margin-top: 6px;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: none;
+  opacity: 0.85;
+}
+
+.family-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.links a,
+.links .link-item {
+  padding: 3px 0;
+  border-bottom: 1px solid var(--gold);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.links a:hover {
+  color: var(--ink);
+}
+
+.links .is-placeholder {
+  border-bottom-style: dotted;
+  opacity: 0.75;
+  cursor: default;
+}
+
+/* ---------- галерея ---------- */
+
+.gallery-intro {
+  margin: 10px 0 35px;
+  color: var(--muted);
+  font: italic 18px Georgia, serif;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.gallery-tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--line);
+  background: var(--paper2);
+  color: var(--muted);
+  font: italic 15px Georgia, serif;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.gallery-tile:nth-child(2n) {
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-tile span {
+  padding: 15px;
+  text-align: center;
+}
+
+.gallery-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-tile:hover {
+  outline: 1px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ---------- лайтбокс ---------- */
+
+.lightbox {
+  max-width: min(94vw, 880px);
+  max-height: 92vh;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+
+.lightbox::backdrop {
+  background: rgba(40, 32, 26, 0.9);
+}
+
+.lightbox-inner {
+  max-height: 92vh;
+  padding: 26px 28px 22px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  text-align: center;
+  overflow: auto;
+}
+
+.lightbox-figure {
+  margin: 0 0 16px;
+}
+
+.lightbox-figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 70vh;
+  height: auto;
+  margin: 0 auto;
+}
+
+.lightbox-figure figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  font: italic 15px Georgia, serif;
+}
+
+.lightbox-title {
+  margin: 0 0 16px;
+  font: 19px Georgia, serif;
+}
+
+.lightbox-title:empty {
+  display: none;
+}
+
+.lightbox-close {
+  padding: 9px 20px;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.lightbox-close:hover {
+  border-color: var(--gold);
+}
+
+html.has-dialog {
+  overflow: hidden;
+}
+
+/* ---------- подвал ---------- */
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 0 35px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+
+/* ---------- 404 ---------- */
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 62vh;
+  max-width: 560px;
+}
+
+.not-found h1 {
+  margin: 14px 0 10px;
+  font-size: clamp(38px, 6vw, 64px);
+}
+
+.not-found .intro {
+  max-width: 100%;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 22px;
+  border-bottom: 1px solid var(--gold);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.back-link:hover {
+  color: var(--ink);
+}
+
+/* ---------- адаптивность ---------- */
+
+@media (max-width: 700px) {
+  .decor-banner {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 20px;
+    margin: 25px 0;
+  }
+
+  .decor-banner .icarus {
+    max-width: min(100%, 300px);
+  }
+
+  .decor-footer-image {
+    max-width: 220px;
+  }
+
+  .site-shell {
+    width: min(100% - 32px, 560px);
+  }
+
+  header {
+    height: 72px;
+  }
+
+  .brand {
+    font-size: 16px;
+  }
+
+  nav {
+    gap: 16px;
+  }
+
+  nav a {
+    padding: 16px 2px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  main {
+    padding: 35px 0 50px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    min-height: 0;
+  }
+
+  .hero-copy {
+    order: 1;
+  }
+
+  .hero-art {
+    order: 0;
+    width: min(62%, 260px);
+    margin-left: auto;
+    justify-self: start;
+  }
+
+  h1 {
+    margin-top: 10px;
+    font-size: clamp(38px, 11vw, 55px);
+  }
+
+  .intro {
+    font-size: 15px;
+  }
+
+  .sun-mark {
+    margin: 28px 0;
+  }
+
+  .quote {
+    margin-bottom: 30px;
+  }
+
+  .section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-card.wide {
+    grid-column: auto;
+  }
+
+  .info-card-split {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .family-art {
+    aspect-ratio: 16 / 10;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 9px;
+  }
+
+  footer {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

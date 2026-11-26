@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "site": {
+    "name": "Between Earth & Sun",
+    "brandNote": "CHARACTER PAGE · GORITSVET",
+    "title": "Between Earth & Sun — Горицвет",
+    "description": "Горицвет — персонаж CatWar: профиль, история, семья, игровая деятельность и галерея образов.",
+    "url": "",
+    "lang": "ru",
+    "themeColor": "#f3ebdd",
+    "ogImage": "assets/og-cover.png",
+    "footer": {
+      "left": "GORITSVET · CATWAR",
+      "right": "BETWEEN EARTH & SUN"
+    },
+    "meander": {
+      "src": "assets/meander.png",
+      "width": 640,
+      "height": 179,
+      "alt": "Античный греческий меандр"
+    }
+  },
+  "character": {
+    "name": "Горицвет",
+    "nameChain": "Цепь имён — здесь будет полная версия",
+    "meta": ["местоимения", "возраст"],
+    "intro": "Здесь появится короткое приветствие или небольшое описание Горицвет — её истории, характера и мира.",
+    "eyebrow": "A small world of its own · 01",
+    "portrait": {
+      "src": "",
+      "alt": "Портрет Горицвет",
+      "label": ["Портрет", "Горицвет"],
+      "caption": "PORTRAIT STUDY · 01"
+    }
+  },
+  "quote": {
+    "text": "«Не всякий полёт измеряется высотой. Иногда достаточно однажды расправить крылья».",
+    "source": "AN ORIGINAL EPIGRAPH · THE MYTH OF ICARUS"
+  },
+  "banner": {
+    "src": "assets/icarus-960.jpg",
+    "srcset": "assets/icarus-480.jpg 480w, assets/icarus-960.jpg 960w, assets/icarus-1440.jpg 1440w",
+    "sizes": "(max-width: 700px) 300px, 430px",
+    "width": 960,
+    "height": 1136,
+    "alt": "Герберт Джеймс Дрейпер. Оплакивание Икара, 1898"
+  },
+  "sections": [
+    {
+      "key": "real-life",
+      "kicker": "REAL LIFE",
+      "title": "Род деятельности",
+      "text": "Информация о занятиях и деятельности Горицвет в реальной жизни. Этот текст можно будет полностью изменить через админ-панель.",
+      "layout": "half"
+    },
+    {
+      "key": "interests",
+      "kicker": "INTERESTS",
+      "title": "Хобби и увлечения",
+      "text": "Любимые занятия, творческие интересы и всё то, чем Горицвет любит наполнять своё время.",
+      "layout": "half"
+    },
+    {
+      "key": "catwar",
+      "kicker": "CATWAR",
+      "title": "Игровая деятельность",
+      "text": "История Горицвет в CatWar: сообщества, роли, проекты и другие игровые занятия. Здесь можно будет разместить несколько отдельных записей или оформить текст единым блоком.",
+      "layout": "full"
+    },
+    {
+      "key": "family",
+      "kicker": "FAMILY",
+      "title": "Семья",
+      "text": "Здесь появится рассказ о семье Горицвет: близкие и родные, отношения и общие истории. Текст и изображение можно будет изменить через админ-панель.",
+      "layout": "split",
+      "media": {
+        "src": "",
+        "alt": "Семья Горицвет",
+        "placeholder": {
+          "title": "Изображение семьи",
+          "hint": "добавим фото или арт"
+        }
+      }
+    },
+    {
+      "key": "elsewhere",
+      "kicker": "ELSEWHERE",
+      "title": "Дополнительные ссылки",
+      "text": "Места, где можно найти связанные с Горицвет материалы и другие проекты.",
+      "layout": "full",
+      "links": [
+        { "label": "Мои проекты", "href": "" },
+        { "label": "Социальные сети", "href": "" },
+        { "label": "Другие ресурсы", "href": "" }
+      ]
+    }
+  ],
+  "gallery": {
+    "eyebrow": "A collection of images · 02",
+    "title": "Галерея",
+    "intro": "Образы, мгновения и разные воплощения Горицвет.",
+    "items": [
+      { "title": "Изображение 01", "caption": "Добавим арт", "src": "", "alt": "" },
+      { "title": "Изображение 02", "caption": "Добавим арт", "src": "", "alt": "" },
+      { "title": "Изображение 03", "caption": "Добавим арт", "src": "", "alt": "" },
+      { "title": "Изображение 04", "caption": "Добавим арт", "src": "", "alt": "" },
+      { "title": "Изображение 05", "caption": "Добавим арт", "src": "", "alt": "" },
+      { "title": "Изображение 06", "caption": "Добавим арт", "src": "", "alt": "" }
+    ]
+  },
+  "credits": [
+    {
+      "text": "H. J. Draper, The Lament for Icarus (1898), общественное достояние",
+      "href": "https://commons.wikimedia.org/wiki/File:Herbert_Draper_-_The_Lament_for_Icarus_-_Google_Art_Project.jpg"
+    },
+    {
+      "text": "Греческий меандр (CC0)",
+      "href": "https://commons.wikimedia.org/wiki/File:Greek_Meander.png"
+    }
+  ]
+}

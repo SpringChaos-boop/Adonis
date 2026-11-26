@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{site.title}}</title>
+<meta name="description" content="{{site.description}}">
+<meta name="theme-color" content="{{site.themeColor}}">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="{{site.name}}">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="{{site.title}}">
+<meta property="og:description" content="{{site.description}}">
+<meta property="og:image" content="{{site.ogImage}}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+{{headExtra}}
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+
+<div class="site-shell">
+<header>
+  <a class="brand" href="#profile"><span data-site="name">{{site.name}}</span><small data-site="brandNote">{{site.brandNote}}</small></a>
+  <nav aria-label="Основная навигация">
+    <a href="#profile" aria-current="page">Профиль</a>
+    <a href="#gallery">Галерея</a>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="page" id="profile" aria-labelledby="profile-title">
+    <div data-render="profile">
+{{profile}}
+    </div>
+  </section>
+
+  <section class="page" id="gallery" aria-labelledby="gallery-title" hidden>
+    <div data-render="gallery">
+{{gallery}}
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span data-site="footerLeft">{{footer.left}}</span>
+  <span data-site="footerRight">{{footer.right}}</span>
+</footer>
+</div>
+
+<dialog id="lightbox" class="lightbox" aria-label="Просмотр изображения">
+  <div class="lightbox-inner">
+    <figure class="lightbox-figure" hidden>
+      <img alt="" decoding="async">
+      <figcaption></figcaption>
+    </figure>
+    <p class="lightbox-title" id="lightbox-title"></p>
+    <button type="button" class="lightbox-close" id="close-lightbox">Закрыть</button>
+  </div>
+</dialog>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
