@@ -77,6 +77,7 @@ function cacheDom() {
     'btn-login', 'btn-logout', 'btn-draft', 'btn-cloud', 'btn-download',
     'btn-import', 'btn-validate', 'btn-reload', 'btn-reset', 'file-import', 'foot-note',
     'preview', 'login', 'login-form', 'login-email', 'login-password', 'login-error', 'login-cancel',
+    'login-project', 'connect', 'connect-close', 'connect-state',
   ];
   for (const id of ids) dom[id] = document.getElementById(id);
   dom.previewWrap = dom.preview.parentElement;
@@ -147,9 +148,10 @@ function bindChrome() {
   dom['btn-reload'].addEventListener('click', updatePreview);
   dom['btn-reset'].addEventListener('click', resetDraft);
 
-  dom['btn-login'].addEventListener('click', openLogin);
+  dom['btn-login'].addEventListener('click', openAuth);
   dom['btn-logout'].addEventListener('click', logout);
   dom['login-cancel'].addEventListener('click', closeLogin);
+  dom['connect-close'].addEventListener('click', closeConnect);
   dom['login-form'].addEventListener('submit', submitLogin);
 
   for (const button of dom.previewTabs) {
@@ -236,7 +238,8 @@ function updateChrome() {
 
   dom['user-badge'].hidden = !session;
   dom['user-badge'].textContent = session ? session.email : '';
-  dom['btn-login'].hidden = !supabase.configured || Boolean(session);
+  dom['btn-login'].hidden = Boolean(session);
+  dom['btn-login'].textContent = supabase.configured ? 'Войти' : 'Подключить Supabase';
   dom['btn-logout'].hidden = !session;
   dom['btn-cloud'].hidden = !supabase.configured;
   dom['btn-cloud'].disabled = !session;
@@ -311,14 +314,54 @@ async function importContent() {
 
 /* ============================ вход ============================ */
 
+function openAuth() {
+  if (supabase.configured) openLogin();
+  else openConnect();
+}
+
 function openLogin() {
-  dom['login'].hidden = false;
+  let host = 'проект не задан';
+  try {
+    host = new URL(supabase.base).host;
+  } catch {
+    /* пустой адрес */
+  }
+  dom['login-project'].textContent = `Проект: ${host}`;
   dom['login-error'].hidden = true;
+  dom['login'].hidden = false;
   dom['login-email'].focus();
 }
 
 function closeLogin() {
   dom['login'].hidden = true;
+}
+
+function openConnect() {
+  const url = supabase.base;
+  dom['connect-state'].textContent = url
+    ? `В config.js указан проект ${url}, но ключ anonKey пуст.`
+    : 'В config.js не заданы ни адрес проекта, ни ключ.';
+  dom['connect'].hidden = false;
+  dom['connect-close'].focus();
+}
+
+function closeConnect() {
+  dom['connect'].hidden = true;
+}
+
+function humanAuthError(message) {
+  const text = String(message || '');
+  if (/invalid login credentials/i.test(text)) {
+    return 'Неверный e-mail или пароль. Проверьте пользователя в Supabase → Authentication → Users.';
+  }
+  if (/email not confirmed/i.test(text)) {
+    return 'Пользователь не подтверждён: в Supabase включите Auto Confirm User.';
+  }
+  if (/rate limit|too many/i.test(text)) return 'Слишком много попыток входа, подождите минуту.';
+  if (/failed to fetch|networkerror/i.test(text)) {
+    return 'Сеть недоступна: проверьте адрес проекта в config.js и подключение к интернету.';
+  }
+  return text;
 }
 
 async function submitLogin(event) {
@@ -332,7 +375,7 @@ async function submitLogin(event) {
     await afterSignIn();
   } catch (error) {
     dom['login-error'].hidden = false;
-    dom['login-error'].textContent = error.message;
+    dom['login-error'].textContent = humanAuthError(error.message);
   }
 }
 

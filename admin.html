@@ -57,7 +57,7 @@
 <div class="login" id="login" hidden>
   <form id="login-form">
     <h2>Вход в Supabase</h2>
-    <p class="hint">Только владелец сайта. Пользователь создаётся в Supabase → Authentication → Users.</p>
+    <p class="hint" id="login-project"></p>
     <label class="field">
       <span>E-mail</span>
       <input class="input" type="email" id="login-email" required autocomplete="username">
@@ -72,6 +72,28 @@
       <button class="btn" type="button" id="login-cancel">Отмена</button>
     </div>
   </form>
+</div>
+
+<div class="login" id="connect" hidden>
+  <div class="connect-card">
+    <h2>Supabase ещё не подключён</h2>
+    <p class="hint">
+      Сейчас панель работает в локальном режиме: правки сохраняются в этом браузере,
+      а готовый файл скачивается кнопкой «Скачать content.json».
+    </p>
+    <p class="hint" id="connect-state"></p>
+    <ol class="connect-steps">
+      <li>Создайте проект на supabase.com.</li>
+      <li>Выполните <code>supabase/schema.sql</code> в SQL Editor.</li>
+      <li>Добавьте пользователя в Authentication → Users (Auto Confirm User).</li>
+      <li>Впишите <code>url</code> и <code>anonKey</code> в <code>config.js</code> и запушьте.</li>
+      <li>Обновите страницу с <code>Ctrl+F5</code> и нажмите «Войти».</li>
+    </ol>
+    <div class="login-actions">
+      <a class="btn" href="supabase/SETUP.md" target="_blank" rel="noopener">Инструкция</a>
+      <button class="btn btn--primary" type="button" id="connect-close">Понятно</button>
+    </div>
+  </div>
 </div>
 
 <script type="module" src="admin/app.js"></script>
