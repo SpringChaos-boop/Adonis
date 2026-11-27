@@ -423,6 +423,59 @@ h1 {
   font-size: 14px;
 }
 
+/* на всю ширину — текст тоже на всю ширину, иначе справа остаётся пустота */
+.info-card.wide:not(.info-card-split) p {
+  max-width: 100%;
+}
+
+/* форматирование внутри текста */
+.info-card p strong,
+.intro strong,
+.quote p strong,
+.gallery-intro strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.info-card p em,
+.intro em,
+.quote p em,
+.gallery-intro em {
+  font-style: italic;
+}
+
+.info-card p u,
+.intro u,
+.quote p u,
+.gallery-intro u {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.info-card p s,
+.intro s,
+.quote p s,
+.gallery-intro s {
+  text-decoration: line-through;
+}
+
+.info-card p a,
+.intro a,
+.quote a,
+.gallery-intro a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 2px;
+}
+
+.info-card p a:hover,
+.intro a:hover,
+.quote a:hover,
+.gallery-intro a:hover {
+  color: var(--ink);
+}
+
 .card-number {
   font-size: 9px;
   letter-spacing: 0.2em;

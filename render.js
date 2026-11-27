@@ -17,14 +17,38 @@ export function esc(value) {
 }
 
 /**
- * Текст с переносами строк: Enter в админке становится <br>,
- * пустая строка — визуальным отступом. Значение по-прежнему экранируется.
+ * Текст с переносами строк и простым форматированием.
+ *
+ * Поддерживается:
+ *   **жирный**, *курсив*, __подчёркнутый__, ~~зачёркнутый~~,
+ *   [ссылка](https://…), Enter — перенос строки.
+ *
+ * Экранирование выполняется первым, поэтому HTML из текста не проходит.
+ * Ссылки сначала заменяются маркерами, чтобы форматирование не задевало URL.
  */
-export function lineBreaks(value) {
-  return esc(value)
-    .replace(/\r\n/g, '\n')
-    .replace(/\n{3,}/g, '\n\n')
-    .replace(/\n/g, '<br>');
+export function richText(value) {
+  let text = esc(value).replace(/\r\n/g, '\n');
+
+  const links = [];
+  text = text.replace(
+    /\[([^\]\n]+)\]\(((?:https?:\/\/|mailto:)[^\s)]+)\)/g,
+    (match, label, href) => {
+      links.push({ label, href });
+      return `\u0000${links.length - 1}\u0000`;
+    },
+  );
+
+  text = text.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+  text = text.replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+  text = text.replace(/__([^_\n]+)__/g, '<u>$1</u>');
+  text = text.replace(/~~([^~\n]+)~~/g, '<s>$1</s>');
+
+  text = text.replace(/\u0000(\d+)\u0000/g, (match, index) => {
+    const link = links[Number(index)];
+    return `<a href="${link.href}" target="_blank" rel="noopener">${link.label}</a>`;
+  });
+
+  return text.replace(/\n{3,}/g, '\n\n').replace(/\n/g, '<br>');
 }
 
 /** Однострочная версия текста — для meta description и атрибутов. */
@@ -73,7 +97,7 @@ function hero(character) {
         <h1 id="profile-title">${esc(character.name)}</h1>
         ${character.nameChain ? `<p class="name-chain">${esc(character.nameChain)}</p>` : ''}
         ${pills}
-        ${character.intro ? `<p class="intro">${lineBreaks(character.intro)}</p>` : ''}
+        ${character.intro ? `<p class="intro">${richText(character.intro)}</p>` : ''}
       </div>
       <div class="hero-art">
         ${art}
@@ -89,7 +113,7 @@ function sunMark() {
 function quote(block) {
   if (!block || !block.text) return '';
   return `<blockquote class="quote">
-      <p>${lineBreaks(block.text)}</p>
+      <p>${richText(block.text)}</p>
       ${block.source ? `<small>${esc(block.source)}</small>` : ''}
     </blockquote>`;
 }
@@ -130,7 +154,7 @@ function section(sectionData, index) {
   const body = [
     number,
     sectionData.title ? `<h2>${esc(sectionData.title)}</h2>` : '',
-    sectionData.text ? `<p>${lineBreaks(sectionData.text)}</p>` : '',
+    sectionData.text ? `<p>${richText(sectionData.text)}</p>` : '',
     renderLinks(sectionData.links),
   ]
     .filter(Boolean)
@@ -204,7 +228,7 @@ export function renderGalleryContent(data) {
 
   return `<div class="eyebrow">${esc(gallery.eyebrow || '')}</div>
     <h1 id="gallery-title">${esc(gallery.title || 'Галерея')}</h1>
-    ${gallery.intro ? `<p class="gallery-intro">${lineBreaks(gallery.intro)}</p>` : ''}
+    ${gallery.intro ? `<p class="gallery-intro">${richText(gallery.intro)}</p>` : ''}
     ${meander('meander-frieze--rule')}
     <div class="gallery-grid">${tiles}</div>`;
 }

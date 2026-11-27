@@ -85,6 +85,80 @@ export function areaField({ path, value = '', rows = 4, placeholder = '' }) {
   return node;
 }
 
+/* ---------- текст с форматированием ---------- */
+
+const WRAP = {
+  bold: { before: '**', after: '**', placeholder: 'жирный' },
+  italic: { before: '*', after: '*', placeholder: 'курсив' },
+  underline: { before: '__', after: '__', placeholder: 'подчёркнутый' },
+  strike: { before: '~~', after: '~~', placeholder: 'зачёркнутый' },
+  link: { before: '[', after: '](https://example.com)', placeholder: 'текст ссылки' },
+};
+
+function wrapSelection(textarea, before, after, placeholder) {
+  const start = textarea.selectionStart ?? 0;
+  const end = textarea.selectionEnd ?? start;
+  const value = textarea.value;
+  const selected = value.slice(start, end) || placeholder;
+  textarea.value = value.slice(0, start) + before + selected + after + value.slice(end);
+  textarea.focus();
+  textarea.setSelectionRange(start + before.length, start + before.length + selected.length);
+  textarea.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+/** Текстовое поле с панелью форматирования (жирный, курсив, подчёркнутый, ссылка). */
+export function richAreaField({ path, value = '', rows = 5, label = 'Текст', hint = '' }) {
+  const textarea = el('textarea', { class: 'input input--area', 'data-path': path, rows });
+  textarea.value = value ?? '';
+
+  const button = (text, key, title) =>
+    el(
+      'button',
+      {
+        class: 'rich-btn',
+        type: 'button',
+        title,
+        onclick: () => {
+          const pair = WRAP[key];
+          wrapSelection(textarea, pair.before, pair.after, pair.placeholder);
+        },
+      },
+      text,
+    );
+
+  const toolbar = el(
+    'div',
+    { class: 'rich-toolbar', role: 'toolbar', 'aria-label': 'Форматирование текста' },
+    button('Ж', 'bold', 'Жирный — Ctrl+B'),
+    button('К', 'italic', 'Курсив — Ctrl+I'),
+    button('Ч', 'underline', 'Подчёркнутый — Ctrl+U'),
+    button('З', 'strike', 'Зачёркнутый'),
+    button('Ссылка', 'link', 'Вставить ссылку'),
+  );
+
+  textarea.addEventListener('keydown', (event) => {
+    if (!(event.ctrlKey || event.metaKey)) return;
+    const key = { b: 'bold', i: 'italic', u: 'underline' }[event.key.toLowerCase()];
+    if (!key) return;
+    event.preventDefault();
+    const pair = WRAP[key];
+    wrapSelection(textarea, pair.before, pair.after, pair.placeholder);
+  });
+
+  const formatting =
+    'Форматирование: **жирный**, *курсив*, __подчёркнутый__, ~~зачёркнутый~~, [ссылка](https://…). ' +
+    'Enter — перенос строки.';
+
+  return el(
+    'div',
+    { class: 'field' },
+    el('span', {}, label),
+    toolbar,
+    textarea,
+    el('small', { class: 'hint' }, hint ? `${hint} ${formatting}` : formatting),
+  );
+}
+
 export function selectField({ path, value = '', options = [] }) {
   const node = el('select', { class: 'input', 'data-path': path });
   for (const option of options) {
