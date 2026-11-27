@@ -10,6 +10,7 @@
  */
 
 import { renderProfileContent, renderGalleryContent, pageMeta } from './render.js';
+import { loadContent as loadSiteContent } from './data/provider.js';
 
 const RENDERERS = {
   profile: renderProfileContent,
@@ -26,13 +27,12 @@ let content = null;
 const prefersReducedMotion = () =>
   typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/** Supabase (если настроен) либо content.json; null — остаётся статическая разметка. */
 async function loadContent() {
   try {
-    const response = await fetch('content.json', { cache: 'no-cache' });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return await response.json();
+    return await loadSiteContent();
   } catch (error) {
-    console.warn('content.json недоступен — используется статическая разметка.', error);
+    console.warn('Контент недоступен — используется статическая разметка.', error);
     return null;
   }
 }

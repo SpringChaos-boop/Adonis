@@ -1,8 +1,12 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /admin/
+Disallow: /config.js
+Disallow: /supabase/
 
 # После публикации:
 # 1) заполните site.url в content.json;
-# 2) выполните npm run build — появится sitemap.xml;
+# 2) выполните build.cmd — появится sitemap.xml;
 # 3) добавьте строку ниже с вашим доменом.
 # Sitemap: https://example.com/sitemap.xml

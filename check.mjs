@@ -125,6 +125,31 @@ try {
   problems.push('404.html не найден — выполните сборку: build.cmd');
 }
 
+// ---------- админка и настройка Supabase ----------
+
+for (const file of ['admin.html', 'config.js', 'data/provider.js', 'data/supabase.js', 'admin/app.js']) {
+  try {
+    await access(resolve(root, file));
+  } catch {
+    problems.push(`нет файла ${file} — админка или Supabase-слой не собраны`);
+  }
+}
+
+try {
+  const admin = await readFile(resolve(root, 'admin.html'), 'utf8');
+  if (!admin.includes('noindex')) problems.push('admin.html должен содержать meta robots noindex');
+  if (admin.includes('{{')) problems.push('admin.html содержит незаполненные плейсхолдеры');
+} catch {
+  /* отсутствие уже отмечено выше */
+}
+
+try {
+  const robots = await readFile(resolve(root, 'robots.txt'), 'utf8');
+  if (!robots.includes('Disallow: /admin.html')) notes.push('robots.txt не закрывает /admin.html');
+} catch {
+  problems.push('robots.txt не найден');
+}
+
 // ---------- отчёт ----------
 
 if (notes.length) {
