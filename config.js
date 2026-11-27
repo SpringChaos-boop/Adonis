@@ -13,6 +13,6 @@
  */
 
 export const supabaseConfig = {
-  url: '',
-  anonKey: '',
+  url: 'https://oemuwnzfuzbgzmzcdwkz.supabase.co',
+  anonKey: 'sb_publishable__atvhrQcEWXNzpRml67u4Q_czP0BJV_',
 };
