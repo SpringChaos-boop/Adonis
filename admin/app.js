@@ -521,7 +521,7 @@ function renderCharacter() {
         field('Надзаголовок', textField({ path: 'character.eyebrow', value: data.eyebrow })),
       ),
       field('Цепь имён', textField({ path: 'character.nameChain', value: data.nameChain })),
-      field('Приветствие / краткое описание', areaField({ path: 'character.intro', value: data.intro, rows: 4 })),
+      field('Приветствие / краткое описание', areaField({ path: 'character.intro', value: data.intro, rows: 4 }), 'Enter — новая строка.'),
       field('Плашки через запятую', metaInput, 'Отображаются рядом с именем.'),
     ),
     panel(
@@ -550,7 +550,7 @@ function renderQuote() {
     panel(
       'Цитата',
       'Эпиграф под первым экраном.',
-      field('Текст', areaField({ path: 'quote.text', value: data.text, rows: 4 })),
+      field('Текст', areaField({ path: 'quote.text', value: data.text, rows: 4 }), 'Enter — новая строка.'),
       field('Источник', textField({ path: 'quote.source', value: data.source, placeholder: 'AN ORIGINAL EPIGRAPH' })),
     ),
   ];
@@ -613,7 +613,7 @@ function renderSections() {
           field('Заголовок', textField({ path: `sections.${index}.title`, value: section.title })),
           field('Надзаголовок', textField({ path: `sections.${index}.kicker`, value: section.kicker, placeholder: 'REAL LIFE' })),
         ),
-        field('Текст', areaField({ path: `sections.${index}.text`, value: section.text, rows: 4 })),
+        field('Текст', areaField({ path: `sections.${index}.text`, value: section.text, rows: 4 }), 'Enter — новая строка, пустая строка — отступ.'),
         el(
           'div',
           { class: 'row' },

@@ -16,6 +16,22 @@ export function esc(value) {
   return String(value ?? '').replace(/[&<>"']/g, (ch) => ESCAPES[ch]);
 }
 
+/**
+ * Текст с переносами строк: Enter в админке становится <br>,
+ * пустая строка — визуальным отступом. Значение по-прежнему экранируется.
+ */
+export function lineBreaks(value) {
+  return esc(value)
+    .replace(/\r\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/\n/g, '<br>');
+}
+
+/** Однострочная версия текста — для meta description и атрибутов. */
+export function plainText(value) {
+  return String(value ?? '').replace(/\s+/g, ' ').trim();
+}
+
 /** 1 → "01". */
 export function pad(number) {
   return String(number).padStart(2, '0');
@@ -57,7 +73,7 @@ function hero(character) {
         <h1 id="profile-title">${esc(character.name)}</h1>
         ${character.nameChain ? `<p class="name-chain">${esc(character.nameChain)}</p>` : ''}
         ${pills}
-        ${character.intro ? `<p class="intro">${esc(character.intro)}</p>` : ''}
+        ${character.intro ? `<p class="intro">${lineBreaks(character.intro)}</p>` : ''}
       </div>
       <div class="hero-art">
         ${art}
@@ -73,7 +89,7 @@ function sunMark() {
 function quote(block) {
   if (!block || !block.text) return '';
   return `<blockquote class="quote">
-      <p>${esc(block.text)}</p>
+      <p>${lineBreaks(block.text)}</p>
       ${block.source ? `<small>${esc(block.source)}</small>` : ''}
     </blockquote>`;
 }
@@ -114,7 +130,7 @@ function section(sectionData, index) {
   const body = [
     number,
     sectionData.title ? `<h2>${esc(sectionData.title)}</h2>` : '',
-    sectionData.text ? `<p>${esc(sectionData.text)}</p>` : '',
+    sectionData.text ? `<p>${lineBreaks(sectionData.text)}</p>` : '',
     renderLinks(sectionData.links),
   ]
     .filter(Boolean)
@@ -188,7 +204,7 @@ export function renderGalleryContent(data) {
 
   return `<div class="eyebrow">${esc(gallery.eyebrow || '')}</div>
     <h1 id="gallery-title">${esc(gallery.title || 'Галерея')}</h1>
-    ${gallery.intro ? `<p class="gallery-intro">${esc(gallery.intro)}</p>` : ''}
+    ${gallery.intro ? `<p class="gallery-intro">${lineBreaks(gallery.intro)}</p>` : ''}
     ${meander('meander-frieze--rule')}
     <div class="gallery-grid">${tiles}</div>`;
 }
@@ -200,11 +216,11 @@ export function pageMeta(data, route) {
     const title = (data.gallery && data.gallery.title) || 'Галерея';
     return {
       title: `${title} — ${name}`,
-      description: (data.gallery && data.gallery.intro) || (data.site && data.site.description) || '',
+      description: plainText((data.gallery && data.gallery.intro) || (data.site && data.site.description) || ''),
     };
   }
   return {
     title: (data.site && data.site.title) || name,
-    description: (data.site && data.site.description) || '',
+    description: plainText((data.site && data.site.description) || ''),
   };
 }
